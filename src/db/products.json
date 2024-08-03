@@ -1,0 +1,114 @@
+[
+  {
+    "id": "1",
+    "title": "Guitarra Eléctrica Fender Stratocaster",
+    "description": "Una guitarra eléctrica clásica con cuerpo de aliso, mástil de arce y tres pastillas simples. Ideal para rock y blues.",
+    "code": "FEND-STRAT-001",
+    "price": 749.99,
+    "status": "available",
+    "stock": 15,
+    "categoria": "Guitarras",
+    "thumbnails": [
+      "https://example.com/images/fender_stratocaster_1.jpg",
+      "https://example.com/images/fender_stratocaster_2.jpg"
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Bajo Eléctrico Ibanez SR305",
+    "description": "Bajo de 5 cuerdas con cuerpo de fresno y mástil de jatoba. Perfecto para músicos de rock y metal.",
+    "code": "IBAN-SR305-002",
+    "price": 499.99,
+    "status": "available",
+    "stock": 8,
+    "categoria": "Bajos",
+    "thumbnails": [
+      "https://example.com/images/ibanez_sr305_1.jpg",
+      "https://example.com/images/ibanez_sr305_2.jpg"
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Micrófono Condensador Audio-Technica AT2020",
+    "description": "Micrófono de condensador de calidad profesional con respuesta de frecuencia amplia y bajo nivel de ruido.",
+    "code": "AUD-AT2020-003",
+    "price": 129.99,
+    "status": "available",
+    "stock": 25,
+    "categoria": "Micrófonos",
+    "thumbnails": [
+      "https://example.com/images/audio_technica_at2020_1.jpg",
+      "https://example.com/images/audio_technica_at2020_2.jpg"
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Teclado MIDI Akai MPK Mini",
+    "description": "Teclado MIDI compacto con 25 teclas, 8 pads y controles asignables. Ideal para producción musical en movimiento.",
+    "code": "AKAI-MPK-MINI-004",
+    "price": 99.99,
+    "status": "available",
+    "stock": 30,
+    "categoria": "Teclados",
+    "thumbnails": [
+      "https://example.com/images/akai_mpk_mini_1.jpg",
+      "https://example.com/images/akai_mpk_mini_2.jpg"
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Caja de Ritmos Roland TR-8S",
+    "description": "Caja de ritmos y secuenciador con sonidos icónicos de la serie TR de Roland. Ideal para productores de música electrónica.",
+    "code": "ROL-TR8S-005",
+    "price": 699.99,
+    "status": "available",
+    "stock": 5,
+    "categoria": "Caja de Ritmos",
+    "thumbnails": [
+      "https://example.com/images/roland_tr8s_1.jpg",
+      "https://example.com/images/roland_tr8s_2.jpg"
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Amplificador de Guitarra Marshall MG15CF",
+    "description": "Amplificador de guitarra de 15 vatios con control de tono y efectos. Ideal para prácticas en casa.",
+    "code": "MAR-MG15CF-006",
+    "price": 149.99,
+    "status": "available",
+    "stock": 12,
+    "categoria": "Amplificadores",
+    "thumbnails": [
+      "https://example.com/images/marshall_mg15cf_1.jpg",
+      "https://example.com/images/marshall_mg15cf_2.jpg"
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Pedal de Efectos Boss DS-1",
+    "description": "Pedal de distorsión legendario con una tonalidad agresiva ideal para guitarras eléctricas.",
+    "code": "BOSS-DS1-007",
+    "price": 79.99,
+    "status": "available",
+    "stock": 20,
+    "categoria": "Efectos",
+    "thumbnails": [
+      "https://example.com/images/boss_ds1_1.jpg",
+      "https://example.com/images/boss_ds1_2.jpg"
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Monitor de Estudio KRK Rokit 5 G4",
+    "description": "Monitor de estudio de 5 pulgadas con respuesta de frecuencia precisa y ajuste de acústica para un sonido profesional.",
+    "code": "KRK-ROKIT5G4-008",
+    "price": 199.99,
+    "status": "available",
+    "stock": 10,
+    "categoria": "Monitores",
+    "thumbnails": [
+      "https://example.com/images/krk_rokit5g4_1.jpg",
+      "https://example.com/images/krk_rokit5g4_2.jpg"
+    ]
+  }
+]
