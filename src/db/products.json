@@ -110,5 +110,18 @@
       "https://example.com/images/krk_rokit5g4_1.jpg",
       "https://example.com/images/krk_rokit5g4_2.jpg"
     ]
-  } 
+  },
+  {
+    "id": "a1d835dc-8113-4428-a89e-546727050941",
+    "title": "Bateria",
+    "description": "Ya no es tan buena bateria xd",
+    "code": "ASDASD-ASDA-ASD",
+    "price": 500000,
+    "status": "true",
+    "stock": 2,
+    "category": "percusion",
+    "thumbnails": [
+      "C:\\Users\\josef\\OneDrive\\Escritorio\\coder-backend\\public\\img\\GJi_MJzWwAAqLqj.jpeg"
+    ]
+  }
 ]

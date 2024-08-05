@@ -37,7 +37,7 @@ productsRouter.get("/:pid", async (req, res)=> {
 
 
 productsRouter.post("/",uploader.array("thumbnails", 3), async (req,res)=> {
-    if (!req.files || !req.files.length > 0){
+    if (!req.files){
         return res.status(400).json({error: "No se pudieron guardar las imagenes"});
     }
     const { 
@@ -67,5 +67,51 @@ productsRouter.post("/",uploader.array("thumbnails", 3), async (req,res)=> {
     }
 })
 
+productsRouter.delete("/:pid", async (req, res) =>{
+    const { pid } = req.params;
+
+    if (!pid) return res.status(400).json({error: "Se debe pasar un id por parametro"})
+    
+    try {
+        await ProductManager.deleteProduct(pid);
+        res.status(204).json({mensaje: "El producto se elimino correctamente."})
+    } catch (error) {
+        console.log("Error al encontrar el pid");
+    }
+});
+
+productsRouter.put("/:pid", uploader.array("thumbnails", 3), async (req,res)=> {
+    const { pid } = req.params;
+
+    if(!pid) return res.status(400).json({error: "Se debe pasar un id como parametro"});
+    
+    if (!req.files){
+        return res.status(400).json({error: "No se pudieron guardar las imagenes"});
+    }
+    const { 
+      price,
+      stock,
+    } = req.body;
+
+    const priceNumber = Number(price);
+    const stockNumber = Number(stock);
+
+    if (isNaN(priceNumber) || isNaN(stockNumber)) 
+        return res.status(400).json({error: "El precio y el stock deben ser un numero"})
+
+    const productUpdated = {
+        ...req.body,
+        price: priceNumber,
+        stock: stockNumber,
+        thumbnails: req.files.map(file => file.path)
+    }
+
+    try{
+        await ProductManager.updateProduct(productUpdated, pid);
+        res.status(200).json({mensaje: "Producto modificado correctamente", product: productUpdated});
+    }catch(e){
+        console.log("Error: No se pudo modificar el producto");
+    }
+})
 
 
