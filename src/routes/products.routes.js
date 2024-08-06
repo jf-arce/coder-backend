@@ -44,7 +44,7 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
     if (!req.files) {
         return res.status(400).json({ error: "No se pudieron guardar las imagenes" });
     }
-    const { price, stock, ...body } = req.body;
+    const { price, stock, status, ...body } = req.body;
 
     if (
         !price ||
@@ -69,6 +69,7 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
         id: crypto.randomUUID(),
         ...body,
         price: priceNumber,
+        status: status ? status : true,
         stock: stockNumber,
         thumbnails: req.files.map((file) => file.path),
     };
