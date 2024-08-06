@@ -112,14 +112,14 @@
     ]
   },
   {
-    "id": "a1d835dc-8113-4428-a89e-546727050941",
+    "id": "607cd2f4-8b42-4f95-b09b-b765602c4c9c",
     "title": "Bateria",
     "description": "Ya no es tan buena bateria xd",
     "code": "ASDASD-ASDA-ASD",
-    "price": 500000,
-    "status": "true",
-    "stock": 2,
+    "status": "",
     "category": "percusion",
+    "price": 12321312,
+    "stock": 2,
     "thumbnails": [
       "C:\\Users\\josef\\OneDrive\\Escritorio\\coder-backend\\public\\img\\GJi_MJzWwAAqLqj.jpeg"
     ]
