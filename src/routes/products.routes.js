@@ -23,6 +23,11 @@ productsRouter.get("/", async (req, res) => {
         }
     } catch (error) {
         console.log(error);
+        res.setHeader("Content-Type", "application/json");
+        return res.status(500).json({
+            error: "Error inesperado en el servidor",
+            detalle: `${error.message}`,
+        });
     }
 });
 
@@ -33,10 +38,15 @@ productsRouter.get("/:pid", async (req, res) => {
 
     try {
         const product = await ProductManager.getProductsById(pid);
-        if (!product) return res.status(404).json({ error: "Producto no encontrado" });
+        res.setHeader("Content-Type", "application/json");
         res.status(200).json(product);
     } catch (e) {
-        console.log("Error en encontrar el producto con el pid asignado");
+        console.log(error);
+        res.setHeader("Content-Type", "application/json");
+        return res.status(500).json({
+            error: "Error inesperado en el servidor",
+            detalle: `${error.message}`,
+        });
     }
 });
 
@@ -76,9 +86,15 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
 
     try {
         await ProductManager.addProduct(newProduct);
+        res.sendStatus("Content-Type", "application/json");
         res.status(201).json({ message: "Producto creado correctamente", product: newProduct });
     } catch (e) {
-        console.log("Error: No se pudo agregar el producto");
+        console.log(error);
+        res.setHeader("Content-Type", "application/json");
+        return res.status(500).json({
+            error: "Error inesperado en el servidor",
+            detalle: `${error.message}`,
+        });
     }
 });
 
@@ -89,9 +105,15 @@ productsRouter.delete("/:pid", async (req, res) => {
 
     try {
         await ProductManager.deleteProduct(pid);
+        res.sendStatus("Content-Type", "application/json");
         res.status(204).json({ mensaje: "El producto se elimino correctamente." });
     } catch (error) {
-        console.log("Error al encontrar el pid");
+        console.log(error);
+        res.setHeader("Content-Type", "application/json");
+        return res.status(500).json({
+            error: "Error inesperado en el servidor",
+            detalle: `${error.message}`,
+        });
     }
 });
 
@@ -133,11 +155,17 @@ productsRouter.put("/:pid", uploader.array("thumbnails", 3), async (req, res) =>
 
     try {
         await ProductManager.updateProduct(productUpdated, pid);
+        res.setHeader("Content-Type", "application/json");
         res.status(200).json({
             mensaje: "Producto modificado correctamente",
             product: productUpdated,
         });
     } catch (e) {
-        console.log("Error: No se pudo modificar el producto");
+        console.log(error);
+        res.setHeader("Content-Type", "application/json");
+        return res.status(500).json({
+            error: "Error inesperado en el servidor",
+            detalle: `${error.message}`,
+        });
     }
 });
