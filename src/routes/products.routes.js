@@ -69,8 +69,13 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
     const priceNumber = Number(price);
     const stockNumber = Number(stock);
 
-    if (isNaN(priceNumber) || isNaN(stockNumber))
+    if (isNaN(priceNumber) || isNaN(stockNumber)){
         return res.status(400).json({ error: "El precio y el stock deben ser un numero" });
+    }
+
+    if (stockNumber < 0 || priceNumber <= 0) {
+        return res.status(400).json({ error: "El precio y el stock deben ser mayor a 0" });
+    }
 
     const newProduct = {
         id: crypto.randomUUID(),
@@ -137,8 +142,13 @@ productsRouter.put("/:pid", pidValidate, uploader.array("thumbnails", 3), async 
     const priceNumber = Number(price);
     const stockNumber = Number(stock);
 
-    if (isNaN(priceNumber) || isNaN(stockNumber))
+    if (isNaN(priceNumber) || isNaN(stockNumber)){
         return res.status(400).json({ error: "El precio y el stock deben ser un numero" });
+    }
+
+    if (stockNumber < 0 || priceNumber <= 0) {
+        return res.status(400).json({ error: "El precio y el stock deben ser mayor a 0" });
+    }
 
     const productUpdated = {
         id: crypto.randomUUID(),
