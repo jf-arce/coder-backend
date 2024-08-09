@@ -12,11 +12,24 @@ export class ProductManager {
         }
     }
 
+    static async pidVerify(pid){
+        if(fs.existsSync(this.path)){
+            const products = JSON.parse(
+                await fs.promises.readFile(this.path, { encoding: "utf-8" }),
+            );
+            const product = products.find((product) => product.id === pid);
+            if (!product) {
+                throw new Error(`El producto ${pid} no existe`);
+            }
+        }else{
+            throw new Error("La ruta de la base de datos no existe");
+        }
+    }
+
     static async getProductsById(pid) {
         if (fs.existsSync(this.path)) {
             const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
             const prod = JSON.parse(products).find((p) => p.id === pid);
-            if (!prod) throw new Error(`Producto con id ${pid} no encontrado`);
             return prod;
         } else {
             return [];
@@ -26,8 +39,7 @@ export class ProductManager {
     static async addProduct(newProduct) {
         if (fs.existsSync(this.path)) {
             const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
-            const productsArray = JSON.parse(products);
-
+            const productsArray = JSON.parse(products); 
             productsArray.push(newProduct);
 
             await fs.promises.writeFile(this.path, JSON.stringify(productsArray, null, 2), {
@@ -43,6 +55,7 @@ export class ProductManager {
             const products = JSON.parse(
                 await fs.promises.readFile(this.path, { encoding: "utf-8" }),
             );
+
             const newProducts = products.filter((product) => product.id !== pid);
 
             await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, 2), {
@@ -58,6 +71,7 @@ export class ProductManager {
             const products = JSON.parse(
                 await fs.promises.readFile(this.path, { encoding: "utf-8" }),
             );
+
             const newProducts = products.map((prod) =>
                 prod.id === pid ? { ...prod, ...prodUpdated } : prod,
             );

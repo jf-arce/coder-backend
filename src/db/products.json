@@ -112,16 +112,14 @@
     ]
   },
   {
-    "id": "607cd2f4-8b42-4f95-b09b-b765602c4c9c",
-    "title": "Bateria",
-    "description": "Ya no es tan buena bateria xd",
-    "code": "ASDASD-ASDA-ASD",
-    "status": "",
-    "category": "percusion",
-    "price": 12321312,
-    "stock": 2,
-    "thumbnails": [
-      "C:\\Users\\josef\\OneDrive\\Escritorio\\coder-backend\\public\\img\\GJi_MJzWwAAqLqj.jpeg"
-    ]
+    "id": "95ba40e9-38a0-4c90-a772-02d1a72c137b",
+    "title": "Un microfono de reemplazo",
+    "description": "Micrófono dinámico de mano con patrón cardioide. Ideal para voces en vivo y grabaciones en estudio.",
+    "code": "SHU-SM58-012",
+    "category": "Microfonos",
+    "price": 200,
+    "status": true,
+    "stock": 20,
+    "thumbnails": []
   }
 ]

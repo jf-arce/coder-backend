@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ProductManager } from "../dao/ProductManager.js";
 import crypto from "crypto";
 import { uploader } from "../utils/uploader.js";
+import { pidValidate } from "../middlewares/pidValidate.js";
 
 export const productsRouter = Router();
 
@@ -31,10 +32,8 @@ productsRouter.get("/", async (req, res) => {
     }
 });
 
-productsRouter.get("/:pid", async (req, res) => {
+productsRouter.get("/:pid", pidValidate, async (req, res) => {
     const { pid } = req.params;
-
-    if (!pid) return res.status(400).json({ error: "Se tiene que pasar el id" });
 
     try {
         const product = await ProductManager.getProductsById(pid);
@@ -54,17 +53,15 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
     if (!req.files) {
         return res.status(400).json({ error: "No se pudieron guardar las imagenes" });
     }
-    const { price, stock, status, ...body } = req.body;
+    const { price, stock, title, description, code, category } = req.body;
 
     if (
         !price ||
         !stock ||
-        !body.title ||
-        !body.description ||
-        !body.code ||
-        !body.category ||
-        !body.brand ||
-        !body.model
+        !title ||
+        !description ||
+        !code ||
+        !category
     ) {
         return res.status(400).json({ error: "Faltan datos obligatorios" });
     }
@@ -77,36 +74,20 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
 
     const newProduct = {
         id: crypto.randomUUID(),
-        ...body,
+        title,
+        description,
+        code,
+        category,
         price: priceNumber,
-        status: status ? status : true,
+        status: true,
         stock: stockNumber,
         thumbnails: req.files.map((file) => file.path),
     };
 
     try {
         await ProductManager.addProduct(newProduct);
-        res.sendStatus("Content-Type", "application/json");
-        res.status(201).json({ message: "Producto creado correctamente", product: newProduct });
-    } catch (e) {
-        console.log(error);
         res.setHeader("Content-Type", "application/json");
-        return res.status(500).json({
-            error: "Error inesperado en el servidor",
-            detalle: `${error.message}`,
-        });
-    }
-});
-
-productsRouter.delete("/:pid", async (req, res) => {
-    const { pid } = req.params;
-
-    if (!pid) return res.status(400).json({ error: "Se debe pasar un id por parametro" });
-
-    try {
-        await ProductManager.deleteProduct(pid);
-        res.sendStatus("Content-Type", "application/json");
-        res.status(204).json({ mensaje: "El producto se elimino correctamente." });
+        res.status(201).json({ message: "Producto creado correctamente", product: newProduct });
     } catch (error) {
         console.log(error);
         res.setHeader("Content-Type", "application/json");
@@ -117,25 +98,38 @@ productsRouter.delete("/:pid", async (req, res) => {
     }
 });
 
-productsRouter.put("/:pid", uploader.array("thumbnails", 3), async (req, res) => {
+productsRouter.delete("/:pid", pidValidate, async (req, res) => {
     const { pid } = req.params;
+    
+    try {
+        await ProductManager.deleteProduct(pid);
+        res.setHeader("Content-Type", "application/json");
+        res.status(200).json({ mensaje: "El producto se elimino correctamente.", id: pid });
+    } catch (error) {
+        console.log(error);
+        res.setHeader("Content-Type", "application/json");
+        return res.status(500).json({
+            error: "Error inesperado en el servidor",
+            detalle: `${error.message}`,
+        });
+    }
+});
 
-    if (!pid) return res.status(400).json({ error: "Se debe pasar un id como parametro" });
-
+productsRouter.put("/:pid", pidValidate, uploader.array("thumbnails", 3), async (req, res) => {
+    const { pid } = req.params;
+    
     if (!req.files) {
         return res.status(400).json({ error: "No se pudieron guardar las imagenes" });
     }
-    const { price, stock, ...body } = req.body;
+    const { price, stock, title, description, code, category } = req.body;
 
     if (
         !price ||
         !stock ||
-        !body.title ||
-        !body.description ||
-        !body.code ||
-        !body.category ||
-        !body.brand ||
-        !body.model
+        !title ||
+        !description ||
+        !code ||
+        !category
     ) {
         return res.status(400).json({ error: "Faltan datos obligatorios" });
     }
@@ -147,8 +141,13 @@ productsRouter.put("/:pid", uploader.array("thumbnails", 3), async (req, res) =>
         return res.status(400).json({ error: "El precio y el stock deben ser un numero" });
 
     const productUpdated = {
-        ...body,
+        id: crypto.randomUUID(),
+        title,
+        description,
+        code,
+        category,
         price: priceNumber,
+        status: true,
         stock: stockNumber,
         thumbnails: req.files.map((file) => file.path),
     };
@@ -160,7 +159,7 @@ productsRouter.put("/:pid", uploader.array("thumbnails", 3), async (req, res) =>
             mensaje: "Producto modificado correctamente",
             product: productUpdated,
         });
-    } catch (e) {
+    } catch (error) {
         console.log(error);
         res.setHeader("Content-Type", "application/json");
         return res.status(500).json({
