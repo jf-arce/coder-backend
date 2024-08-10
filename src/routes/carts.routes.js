@@ -5,6 +5,7 @@ export const cartsRouter = Router();
 
 cartsRouter.post("/", async (req, res) => {
     try {
+        console.log("hola")
         const cart = await CartManager.createCart();
         res.setHeader("Content-Type", "application/json");
         res.status(201).json({ message: "Carrito creado con exito", cart });

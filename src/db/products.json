@@ -110,16 +110,5 @@
       "https://example.com/images/krk_rokit5g4_1.jpg",
       "https://example.com/images/krk_rokit5g4_2.jpg"
     ]
-  },
-  {
-    "id": "95ba40e9-38a0-4c90-a772-02d1a72c137b",
-    "title": "Un microfono de reemplazo",
-    "description": "Micrófono dinámico de mano con patrón cardioide. Ideal para voces en vivo y grabaciones en estudio.",
-    "code": "SHU-SM58-012",
-    "category": "Microfonos",
-    "price": 200,
-    "status": true,
-    "stock": 20,
-    "thumbnails": []
   }
 ]
