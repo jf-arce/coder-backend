@@ -19,22 +19,5 @@
         "id": "1f9186b4-98da-4e63-bf57-cb73264e0d3a"
       }
     ]
-  },
-  {
-    "id": "6970b4ba-ada3-4cfe-ab97-f282adec48e0",
-    "products": [
-      {
-        "id": "a7480d30-8d4e-4d2f-a9e3-858fc81ebf6e",
-        "quantity": 1
-      },
-      {
-        "id": "c83d1c5b-63c7-487c-abe8-f6a1b40c5a04",
-        "quantity": 1
-      }
-    ]
-  },
-  {
-    "id": "01defed1-b732-413d-8b93-70aa41b1252c",
-    "products": []
   }
 ]
