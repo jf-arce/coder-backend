@@ -1,3 +1,11 @@
-<h1>{{saludo}}</h1>
+{{#each products}}
+    <div>
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+        <p>{{this.price}}</p>
+        {{#each thumbnails}}
+            <img src={{this}} alt={{this.title}}>
+        {{/each}}
+    </div>
+{{/each}}
 
-{{>button}}
