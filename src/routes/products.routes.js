@@ -3,6 +3,7 @@ import { ProductManager } from "../dao/ProductManager.js";
 import crypto from "crypto";
 import { uploader } from "../utils/uploader.js";
 import { pidValidate } from "../middlewares/pidValidate.js";
+import { io } from "../app.js";
 
 export const productsRouter = Router();
 
@@ -91,6 +92,7 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
 
     try {
         await ProductManager.addProduct(newProduct);
+        io.emit("addProduct", newProduct);
         res.setHeader("Content-Type", "application/json");
         res.status(201).json({ message: "Producto creado correctamente", product: newProduct });
     } catch (error) {
@@ -108,6 +110,7 @@ productsRouter.delete("/:pid", pidValidate, async (req, res) => {
     
     try {
         await ProductManager.deleteProduct(pid);
+        io.emit("deleteProduct", pid);
         res.setHeader("Content-Type", "application/json");
         res.status(200).json({ mensaje: "El producto se elimino correctamente.", id: pid });
     } catch (error) {

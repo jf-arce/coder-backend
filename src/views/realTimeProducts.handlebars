@@ -1,0 +1,42 @@
+<a href="/">Ir al home http</a>
+
+<div class="form-container">
+    <h2>Agregar nuevo producto</h2>
+    <form id="products-form" enctype="multipart/form-data">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="title" required>
+        <label for="code">Code</label>
+        <input type="text" id="code" name="code" required>
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" required>
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" required>
+        <label for="stock">Stock</label>
+        <input type="number" id="stock" name="stock" required>
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" required>
+        <label for="thumbnail">Imagenes</label>
+        <input type="file" id="thumbnails" name="thumbnails" accept="image/*" multiple>
+        <button type="submit">Agregar</button>
+    </form>
+</div>
+
+<div id="container-products" class="container">
+    {{#each products}}
+        <div class="card-product">
+            <header class="img-container">
+                {{#each thumbnails}}
+                    <img src={{this}} alt={{this.title}}>
+                {{/each}}
+            </header>
+            <main class="card-content">
+                <h3 class="title-product">{{this.title}}</h3>
+                <p class="description-product">{{this.description}}</p>
+                <p class="price-product">{{this.price}}</p>
+            </main>
+            <footer class="card-footer">
+                <button id="btn-delete" class="btn-delete" data-id={{this.id}}>Eliminar</button>
+            </footer>
+        </div>
+    {{/each}}
+</div>
