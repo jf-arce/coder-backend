@@ -3,6 +3,7 @@ import { ProductManager } from "../dao/ProductManager.js";
 import crypto from "crypto";
 import { uploader } from "../utils/uploader.js";
 import { pidValidate } from "../middlewares/pidValidate.js";
+import { io } from "../app.js";
 
 export const productsRouter = Router();
 
@@ -50,6 +51,8 @@ productsRouter.get("/:pid", pidValidate, async (req, res) => {
 });
 
 productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
+
+    console.log(req.files)
     if (!req.files) {
         return res.status(400).json({ error: "No se pudieron guardar las imagenes" });
     }
@@ -93,6 +96,7 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
         await ProductManager.addProduct(newProduct);
         res.setHeader("Content-Type", "application/json");
         res.status(201).json({ message: "Producto creado correctamente", product: newProduct });
+        io.emit("addProduct", newProduct);
     } catch (error) {
         console.log(error);
         res.setHeader("Content-Type", "application/json");
