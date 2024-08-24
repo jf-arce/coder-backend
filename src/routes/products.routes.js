@@ -51,8 +51,6 @@ productsRouter.get("/:pid", pidValidate, async (req, res) => {
 });
 
 productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
-
-    console.log(req.files)
     if (!req.files) {
         return res.status(400).json({ error: "No se pudieron guardar las imagenes" });
     }
@@ -94,9 +92,9 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
 
     try {
         await ProductManager.addProduct(newProduct);
+        io.emit("addProduct", newProduct);
         res.setHeader("Content-Type", "application/json");
         res.status(201).json({ message: "Producto creado correctamente", product: newProduct });
-        io.emit("addProduct", newProduct);
     } catch (error) {
         console.log(error);
         res.setHeader("Content-Type", "application/json");
@@ -112,6 +110,7 @@ productsRouter.delete("/:pid", pidValidate, async (req, res) => {
     
     try {
         await ProductManager.deleteProduct(pid);
+        io.emit("deleteProduct", pid);
         res.setHeader("Content-Type", "application/json");
         res.status(200).json({ mensaje: "El producto se elimino correctamente.", id: pid });
     } catch (error) {
