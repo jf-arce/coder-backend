@@ -1,5 +1,9 @@
 const socket = io();
 
+if(window.location.pathname === '/realTimeProducts'){
+    socket.emit("message", "Real time products conectado!");
+}
+
 const containerProducts = document.getElementById("container-products");
 const productsForm = document.getElementById("products-form");
 
