@@ -12,8 +12,8 @@ export class ProductManager {
         }
     }
 
-    static async pidVerify(pid){
-        if(fs.existsSync(this.path)){
+    static async pidVerify(pid) {
+        if (fs.existsSync(this.path)) {
             const products = JSON.parse(
                 await fs.promises.readFile(this.path, { encoding: "utf-8" }),
             );
@@ -21,7 +21,7 @@ export class ProductManager {
             if (!product) {
                 throw new Error(`El producto ${pid} no existe`);
             }
-        }else{
+        } else {
             throw new Error("La ruta de la base de datos no existe");
         }
     }
@@ -39,7 +39,7 @@ export class ProductManager {
     static async addProduct(newProduct) {
         if (fs.existsSync(this.path)) {
             const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
-            const productsArray = JSON.parse(products); 
+            const productsArray = JSON.parse(products);
             productsArray.push(newProduct);
 
             await fs.promises.writeFile(this.path, JSON.stringify(productsArray, null, 2), {

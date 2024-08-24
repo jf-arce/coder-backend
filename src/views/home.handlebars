@@ -1,17 +1,18 @@
-<a href="/realtimeproducts">Ir a la paginas de productos en real time</a>
 <h1>Productos</h1>
 <div class="container">
     {{#each products}}
         <div class="card-product">
-            <div class="img-container">
-                {{#each thumbnails}}
-                    <img src={{this}} alt={{this.title}}>
-                {{/each}}
-            </div>
+            <header class="card-header">
+                <div class="img-container">
+                    {{#each thumbnails}}
+                        <img src={{this}} alt={{this.title}}>
+                    {{/each}}
+                </div>
+            </header>
             <div class="card-content">
                 <h3 class="title-product">{{this.title}}</h3>
                 <p class="description-product">{{this.description}}</p>
-                <p class="price-product">{{this.price}}</p>
+                <p class="price-product">${{this.price}}</p>
             </div>
         </div>
     {{/each}}

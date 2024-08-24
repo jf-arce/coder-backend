@@ -36,9 +36,7 @@ app.use("/", viewsRouter);
 
 // Socket.io
 io.on("connection", socket => {
-    console.log("Nuevo cliente conectado!");
-
-    socket.on("message", data => {
-        console.log(data)
+    socket.on("message", message => {
+        console.log(message);
     });
 })

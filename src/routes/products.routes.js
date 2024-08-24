@@ -56,21 +56,14 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
     }
     const { price, stock, title, description, code, category } = req.body;
 
-    if (
-        !price ||
-        !stock ||
-        !title ||
-        !description ||
-        !code ||
-        !category
-    ) {
+    if (!price || !stock || !title || !description || !code || !category) {
         return res.status(400).json({ error: "Faltan datos obligatorios" });
     }
 
     const priceNumber = Number(price);
     const stockNumber = Number(stock);
 
-    if (isNaN(priceNumber) || isNaN(stockNumber)){
+    if (isNaN(priceNumber) || isNaN(stockNumber)) {
         return res.status(400).json({ error: "El precio y el stock deben ser un numero" });
     }
 
@@ -107,7 +100,7 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
 
 productsRouter.delete("/:pid", pidValidate, async (req, res) => {
     const { pid } = req.params;
-    
+
     try {
         await ProductManager.deleteProduct(pid);
         io.emit("deleteProduct", pid);
@@ -125,27 +118,20 @@ productsRouter.delete("/:pid", pidValidate, async (req, res) => {
 
 productsRouter.put("/:pid", pidValidate, uploader.array("thumbnails", 3), async (req, res) => {
     const { pid } = req.params;
-    
+
     if (!req.files) {
         return res.status(400).json({ error: "No se pudieron guardar las imagenes" });
     }
     const { price, stock, title, description, code, category } = req.body;
 
-    if (
-        !price ||
-        !stock ||
-        !title ||
-        !description ||
-        !code ||
-        !category
-    ) {
+    if (!price || !stock || !title || !description || !code || !category) {
         return res.status(400).json({ error: "Faltan datos obligatorios" });
     }
 
     const priceNumber = Number(price);
     const stockNumber = Number(stock);
 
-    if (isNaN(priceNumber) || isNaN(stockNumber)){
+    if (isNaN(priceNumber) || isNaN(stockNumber)) {
         return res.status(400).json({ error: "El precio y el stock deben ser un numero" });
     }
 

@@ -1,20 +1,25 @@
 const socket = io();
 
+if(window.location.pathname === '/realTimeProducts'){
+    socket.emit("message", "Real time products conectado!");
+}
+
 const containerProducts = document.getElementById("container-products");
 const productsForm = document.getElementById("products-form");
 
 socket.on("addProduct", (data) => {
-    console.log("Nuevo producto creado", data);
     containerProducts.innerHTML += `
         <div class="card-product">
-            <header class="img-container">
-                <img src=${""} alt=${""}>
+            <header class="card-header">            
+                <div class="img-container">
+                    <img src=${""} alt=${""}>
+                </div>
             </header>
-            <main class="card-content">
+            <div class="card-content">
                 <h3 class="title-product">${data.title}</h3>
                 <p class="description-product">${data.description}</p>
                 <p class="price-product">${data.price}</p>
-            </main>
+            </div>
             <footer class="card-footer">
                 <button id="btn-delete" class="btn-delete" data-id=${data.id}>Eliminar</button>
             </footer>
@@ -26,7 +31,6 @@ socket.on("deleteProduct", (data) => {
     const product = document.querySelector(`[data-id="${data}"]`);
     product.parentElement.parentElement.remove();
 });
-
 
 productsForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -45,5 +49,3 @@ containerProducts.addEventListener("click", async (e) => {
         });
     }
 });
-
-

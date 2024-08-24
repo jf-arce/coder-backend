@@ -36,21 +36,24 @@ cartsRouter.get("/:cid", async (req, res) => {
     }
 });
 
-cartsRouter.post("/:cid/products/:pid", async (req,res) => {
-    const {cid, pid } = req.params;
+cartsRouter.post("/:cid/products/:pid", async (req, res) => {
+    const { cid, pid } = req.params;
 
-    if (!cid || !pid) return res.status(400).json({error: "Tienen que pasarse todos los parametros obligatorios"})
+    if (!cid || !pid)
+        return res
+            .status(400)
+            .json({ error: "Tienen que pasarse todos los parametros obligatorios" });
 
-    try{
-        await CartManager.addProductToCart(cid,pid);
-        res.setHeader("Content-Type", "application/json")
-        res.status(200).json({message: "Producto agregado correctamente"})
-    }catch(error){
-        console.log(error)
+    try {
+        await CartManager.addProductToCart(cid, pid);
+        res.setHeader("Content-Type", "application/json");
+        res.status(200).json({ message: "Producto agregado correctamente" });
+    } catch (error) {
+        console.log(error);
         res.setHeader("Content-Type", "application/json");
         return res.status(500).json({
             error: "Error inesperado en el servidor",
-            detalle: `${error.message}`
-        })
+            detalle: `${error.message}`,
+        });
     }
-})
+});
