@@ -1,85 +1,109 @@
-:root{
+:root {
     color-scheme: light dark;
 }
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
-h1{
+h1 {
     font-size: 30px;
     display: flex;
     justify-content: center;
     padding: 20px;
 }
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    place-items: center;
     margin-top: 2em;
     gap: 40px;
 }
 
-.card-product{
+.card-product {
     width: 300px;
+    height: 100%;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.241);
     color: black;
+    transition: all 150ms;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        .img-container {
+            transform: scale(1.1);
+        }
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.413);
+    }
 }
 
-.card-content{
-    padding: 15px;
-    background-color: rgb(252, 252, 252);
+.card-header {
+    overflow: hidden;
+    border-top: 10px;
 }
 
-.img-container{
+.img-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 4px;
-    border-top: 10px;
+    transition: all 400ms;
 }
 
-.card-product img{
+.card-product img {
     width: 150px;
     height: 200px;
     object-fit: cover;
 }
 
-.title-product{
+.card-content {
+    padding: 20px 15px;
+    background-color: rgb(252, 252, 252);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-product {
     font-size: 16px;
     margin: 0;
     margin-top: 10px;
+    flex-grow: 1;
 }
 
-.description-product{
+.description-product {
     font-size: 14px;
     color: #525252;
     margin-top: 10px;
+    flex-grow: 1;
 }
 
-.price-product{
+.price-product {
     font-size: 25px;
     font-weight: bold;
     margin: 0;
     margin-top: 10px;
 }
 
-.card-footer{
+.card-footer {
     display: flex;
     justify-content: center;
+    flex-grow: 1;
 
-    #btn-delete{
+    #btn-delete {
         width: 100%;
         border-top: none;
         border-radius: 0px;
         background-color: rgb(235, 70, 70);
 
-        &:hover{
+        &:hover {
             background-color: rgb(198, 61, 61);
             color: white;
         }
@@ -88,25 +112,25 @@ h1{
 
 /* Form */
 
-.form-container{
+.form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
 
-    h2{
+    h2 {
         padding: 10px;
     }
 }
 
-label{
+label {
     font-size: 16px;
     margin-top: 10px;
     justify-content: start;
     align-items: start;
 }
-form{
+form {
     width: 600px;
     margin: 0 auto;
     display: flex;
@@ -115,27 +139,27 @@ form{
     gap: 10px;
     margin-top: 10px;
 
-    input{
+    input {
         padding: 10px;
         border: 1px solid #cbcbcb;
         border-radius: 5px;
         transition: 150ms;
-        &:focus{
+        &:focus {
             border: 1px solid #000;
         }
     }
 
-    button{
+    button {
         margin-top: 20px;
         background-color: rgb(43, 172, 84);
-        &:hover{
+        &:hover {
             background-color: rgb(43, 144, 75);
             color: white;
         }
     }
 }
 
-button{
+button {
     padding: 10px;
     background-color: #000;
     color: white;
@@ -143,7 +167,7 @@ button{
     border-radius: 5px;
     cursor: pointer;
     transition: 150ms;
-    &:hover{
+    &:hover {
         background-color: #ededed;
         color: black;
     }

@@ -23,8 +23,8 @@
     "stock": 8,
     "category": "Bajos",
     "thumbnails": [
-      "https://example.com/images/ibanez_sr305_1.jpg",
-      "https://example.com/images/ibanez_sr305_2.jpg"
+      "https://th.bing.com/th/id/OIP.DAlUncUsibShPh0_78E30gHaI4?rs=1&pid=ImgDetMain",
+      "https://th.bing.com/th/id/OIP.Vykxio3UpWaSnfH5BygLEwHaHa?w=600&h=600&rs=1&pid=ImgDetMain"
     ]
   },
   {
@@ -37,8 +37,7 @@
     "stock": 25,
     "category": "Micrófonos",
     "thumbnails": [
-      "https://example.com/images/audio_technica_at2020_1.jpg",
-      "https://example.com/images/audio_technica_at2020_2.jpg"
+      "https://th.bing.com/th/id/OIP.hdqrD2uSvYCDA6eicvitHgHaHa?rs=1&pid=ImgDetMain"
     ]
   },
   {
@@ -51,8 +50,8 @@
     "stock": 30,
     "category": "Teclados",
     "thumbnails": [
-      "https://example.com/images/akai_mpk_mini_1.jpg",
-      "https://example.com/images/akai_mpk_mini_2.jpg"
+      "https://m.media-amazon.com/images/I/81FWiE8-d3L._AC_SL1500_.jpg",
+      "https://sw3310.sfstatic.io/upload_dir/shop/Akai-MPK-Mini-Mk3-1.jpg"
     ]
   },
   {
@@ -65,8 +64,8 @@
     "stock": 5,
     "category": "Caja de Ritmos",
     "thumbnails": [
-      "https://example.com/images/roland_tr8s_1.jpg",
-      "https://example.com/images/roland_tr8s_2.jpg"
+      "https://produtos.egitana.pt/caixa-de-ritmos-musica-electronica-roland-tr-8s_6315ec32eb45c.jpg",
+      "https://www.falymusic.com/images/detailed/24/static_roland_com-tr-8s_top_gal.jpg"
     ]
   },
   {
@@ -93,8 +92,7 @@
     "stock": 20,
     "category": "Efectos",
     "thumbnails": [
-      "https://example.com/images/boss_ds1_1.jpg",
-      "https://example.com/images/boss_ds1_2.jpg"
+      "https://th.bing.com/th/id/OIP.Om7sr7N-b0uK97Zjj69hzwHaHa?rs=1&pid=ImgDetMain"
     ]
   },
   {
@@ -107,8 +105,8 @@
     "stock": 10,
     "category": "Monitores",
     "thumbnails": [
-      "https://example.com/images/krk_rokit5g4_1.jpg",
-      "https://example.com/images/krk_rokit5g4_2.jpg"
+      "https://th.bing.com/th/id/OIP.c6_ZDS1AekMDQJvZ3gxbKgHaHa?rs=1&pid=ImgDetMain",
+      "https://www.bhphotovideo.com/images/images2500x2500/krk_rp5_g4_5_rokit_active_nearfield_1457615.jpg"
     ]
   }
 ]
