@@ -6,10 +6,12 @@ import { CartManager } from "./dao/CartManager.js";
 import { engine } from "express-handlebars";
 import { viewsRouter } from "./routes/views.routes.js";
 import { Server } from "socket.io";
+import { dbConnection } from "./dbConnection.js";
+import { config } from "./config/config.js";
 
 // Server
 const app = express();
-const PORT = 8080;
+const PORT = config.PORT;
 const httpServer = app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
@@ -40,3 +42,6 @@ io.on("connection", socket => {
         console.log(message);
     });
 })
+
+//MongoDB connetion
+dbConnection();

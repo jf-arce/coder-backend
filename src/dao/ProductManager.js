@@ -1,15 +1,18 @@
 import fs from "fs";
+import { productsModel } from "./models/products.model.js";
 
 export class ProductManager {
     static path;
 
     static async getProducts() {
-        if (fs.existsSync(this.path)) {
-            const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
-            return JSON.parse(products);
-        } else {
-            return [];
-        }
+        // if (fs.existsSync(this.path)) {
+        //     const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
+        //     return JSON.parse(products);
+        // } else {
+        //     return [];
+        // }
+
+        return productsModel.find();
     }
 
     static async pidVerify(pid) {
