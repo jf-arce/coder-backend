@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { ProductManager } from "../dao/ProductManager.js";
-import crypto from "crypto";
 import { uploader } from "../utils/uploader.js";
 import { pidValidate } from "../middlewares/pidValidate.js";
 import { io } from "../app.js";
@@ -8,21 +7,17 @@ import { io } from "../app.js";
 export const productsRouter = Router();
 
 productsRouter.get("/", async (req, res) => {
-    const { limit } = req.query;
+    const { limit, page, query, sort  } = req.query;
     try {
-        const products = await ProductManager.getProducts();
 
-        if (!limit) return res.status(200).json(products);
-
-        const limitNumber = Number(limit);
-        if (isNaN(limitNumber)) {
-            res.setHeader("Content-Type", "application/json");
-            return res.status(400).json({ error: "El argumento limit tiene que ser un numero" });
-        } else {
-            const productsLimit = products.slice(0, limitNumber);
-            res.setHeader("Content-Type", "application/json");
-            return res.status(200).json(productsLimit);
+        if (!limit){
+            const products = await ProductManager.getProducts();
+            return res.status(200).json(products);
+        }else{
+            const products = await ProductManager.getProductsLimited(Number(limit));
+            return res.status(200).json(products);
         }
+
     } catch (error) {
         console.log(error);
         res.setHeader("Content-Type", "application/json");
@@ -40,7 +35,7 @@ productsRouter.get("/:pid", pidValidate, async (req, res) => {
         const product = await ProductManager.getProductsById(pid);
         res.setHeader("Content-Type", "application/json");
         res.status(200).json(product);
-    } catch (e) {
+    } catch (error) {
         console.log(error);
         res.setHeader("Content-Type", "application/json");
         return res.status(500).json({
@@ -72,7 +67,6 @@ productsRouter.post("/", uploader.array("thumbnails", 3), async (req, res) => {
     }
 
     const newProduct = {
-        id: crypto.randomUUID(),
         title,
         description,
         code,
@@ -140,7 +134,6 @@ productsRouter.put("/:pid", pidValidate, uploader.array("thumbnails", 3), async 
     }
 
     const productUpdated = {
-        id: crypto.randomUUID(),
         title,
         description,
         code,
