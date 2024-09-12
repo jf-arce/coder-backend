@@ -7,17 +7,15 @@ import { io } from "../app.js";
 export const productsRouter = Router();
 
 productsRouter.get("/", async (req, res) => {
-    const { limit, page, query, sort  } = req.query;
+    const { limit, page, query, sort } = req.query;
     try {
-
-        if (!limit){
-            const products = await ProductManager.getProducts();
-            return res.status(200).json(products);
-        }else{
-            const products = await ProductManager.getProductsLimited(Number(limit));
-            return res.status(200).json(products);
-        }
-
+        const products = await ProductManager.getProducts(
+            limit, 
+            page, 
+            query, 
+            sort === "asc" ? { price: 1 } : { price: -1 }
+        );
+        return res.status(200).json(products);
     } catch (error) {
         console.log(error);
         res.setHeader("Content-Type", "application/json");

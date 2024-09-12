@@ -2,16 +2,10 @@ import fs from "fs";
 import { productsModel } from "./models/products.model.js";
 
 export class ProductManager {
-    static path;
-
-    static async getProducts() {
-        return productsModel.find().limit(10).lean();
+    static async getProducts(limit=10, page=1, query={}, sort={}) {
+        return productsModel.paginate(query,{lean:true, limit, page, sort});
     }
-
-    static async getProductsLimited(limit) {
-        return productsModel.find().limit(limit).lean();
-    }
-
+    
     static async pidVerify(pid) {
         return productsModel.findById(pid);
     }
