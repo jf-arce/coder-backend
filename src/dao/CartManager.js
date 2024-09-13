@@ -10,7 +10,7 @@ export class CartManager {
     }
 
     static async getCartProducts(cid) {
-        return await cartsModel.findOne({ _id: cid }).populate("products.product");
+        return await cartsModel.findOne({ _id: cid });
     }
 
     static async addProductToCart(cid, pid) {

@@ -11,7 +11,7 @@ export class ProductManager {
                   }
                 : {},
             {
-                lean: true,
+                lean: true, //Return plain JS objects instead of Mongoose Documents
                 limit,
                 page,
                 sort: sort ? (sort === "asc" ? { price: 1 } : { price: -1 }) : null,
