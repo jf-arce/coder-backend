@@ -10,29 +10,46 @@ export class CartManager {
     }
 
     static async getCartProducts(cid) {
-        return await cartsModel.findOne({ _id: cid });
+        return await cartsModel.findOne({ _id: cid }).populate("products.product");
     }
 
     static async addProductToCart(cid, pid) {
         const productExist = await cartsModel.findOne({
             _id: cid,
-            products: { $elemMatch: { _id: pid } },
+            products: { $elemMatch: { product: pid } },
         });
 
         if (productExist) {
             // Si existe el producto, incremento la cantidad
             await cartsModel.updateOne(
-                { _id: cid, 'products._id': pid },
-                { $inc: { 'products.$.quantity': 1 } },
-                { new: true }
+                { _id: cid, "products.product": pid },
+                { $inc: { "products.$.quantity": 1 } },
             );
         } else {
             // Si no existe el producto, lo agrego al carrito
-            await cartsModel.findByIdAndUpdate(
-                cid,
-                { $push: { products: { _id: pid, quantity: 1 } } },
-                { new: true },
+            await cartsModel.updateOne(
+                { _id: cid },
+                { $push: { products: { product: pid, quantity: 1 } } },
             );
         }
+    }
+
+    static async deleteProductFromCart(cid, pid) {
+        await cartsModel.updateOne({ _id: cid }, { $pull: { products: { product: pid } } });
+    }
+
+    static async deleteAllProducts(cid) {
+        await cartsModel.updateOne({ _id: cid }, { $set: { products: [] } });
+    }
+
+    static async updateAllCart(cid, prods) {
+        await cartsModel.updateOne({ _id: cid }, { $set: { products: prods } });
+    }
+
+    static async updateProductQuantity(cid, pid, quantity) {
+        await cartsModel.updateOne(
+            { _id: cid, "products.product": pid },
+            { $set: { "products.$.quantity": quantity } },
+        );
     }
 }
