@@ -8,13 +8,9 @@ export const productsRouter = Router();
 
 productsRouter.get("/", async (req, res) => {
     const { limit, page, query, sort } = req.query;
+
     try {
-        const products = await ProductManager.getProducts(
-            limit, 
-            page, 
-            query, 
-            sort === "asc" ? { price: 1 } : { price: -1 }
-        );
+        const products = await ProductManager.getProducts(limit, page, query, sort);
         return res.status(200).json(products);
     } catch (error) {
         console.log(error);

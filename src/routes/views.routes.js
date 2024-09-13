@@ -6,11 +6,11 @@ export const viewsRouter = Router();
 viewsRouter.get("/", async (req, res) => {
     try {
         const products = await ProductManager.getProducts();
-        
+
         res.setHeader("Content-Type", "text/html");
         res.status(200).render("home", {
             title: "Home",
-            products,
+            products: products.payload,
         });
     } catch (error) {
         console.log(error);
@@ -28,7 +28,7 @@ viewsRouter.get("/realtimeproducts", async (req, res) => {
         res.setHeader("Content-Type", "text/html");
         res.status(200).render("realTimeProducts", {
             title: "Real Time Products",
-            products,
+            products: products.payload,
         });
     } catch (error) {
         console.log(error);
