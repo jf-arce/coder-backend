@@ -1,86 +1,58 @@
-import fs from "fs";
+import { productsModel } from "./models/products.model.js";
 
 export class ProductManager {
-    static path;
+    static async getProducts(limit = 10, page = 1, query, sort) {
+        const response = await productsModel.paginate(
+            query
+                ? {
+                      $expr: {
+                          $eq: [{ $toLower: "$category" }, query.toLowerCase()], //Case insensitive
+                      },
+                  }
+                : {},
+            {
+                lean: true,
+                limit,
+                page,
+                sort: sort ? (sort === "asc" ? { price: 1 } : { price: -1 }) : null,
+            },
+        );
 
-    static async getProducts() {
-        if (fs.existsSync(this.path)) {
-            const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
-            return JSON.parse(products);
-        } else {
-            return [];
-        }
+        return {
+            status: response ? "success" : "error",
+            payload: response.docs,
+            totalPages: response.totalPages,
+            prevPage: response.prevPage,
+            nextPage: response.nextPage,
+            page: response.page,
+            hasPrevPage: response.hasPrevPage,
+            hasNextPage: response.hasNextPage,
+            prevLink: response.hasPrevPage
+                ? `/api/products?limit=${limit}&page=${response.prevPage}`
+                : null,
+            nextLink: response.hasNextPage
+                ? `/api/products?limit=${limit}&page=${response.nextPage}`
+                : null,
+        };
     }
 
     static async pidVerify(pid) {
-        if (fs.existsSync(this.path)) {
-            const products = JSON.parse(
-                await fs.promises.readFile(this.path, { encoding: "utf-8" }),
-            );
-            const product = products.find((product) => product.id === pid);
-            if (!product) {
-                throw new Error(`El producto ${pid} no existe`);
-            }
-        } else {
-            throw new Error("La ruta de la base de datos no existe");
-        }
+        return await productsModel.findById(pid);
     }
 
     static async getProductsById(pid) {
-        if (fs.existsSync(this.path)) {
-            const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
-            const prod = JSON.parse(products).find((p) => p.id === pid);
-            return prod;
-        } else {
-            return [];
-        }
+        return await productsModel.findOne({ _id: pid }).lean();
     }
 
     static async addProduct(newProduct) {
-        if (fs.existsSync(this.path)) {
-            const products = await fs.promises.readFile(this.path, { encoding: "utf-8" });
-            const productsArray = JSON.parse(products);
-            productsArray.push(newProduct);
-
-            await fs.promises.writeFile(this.path, JSON.stringify(productsArray, null, 2), {
-                encoding: "utf-8",
-            });
-        } else {
-            return [];
-        }
+        await productsModel.create(newProduct);
     }
 
     static async deleteProduct(pid) {
-        if (fs.existsSync(this.path)) {
-            const products = JSON.parse(
-                await fs.promises.readFile(this.path, { encoding: "utf-8" }),
-            );
-
-            const newProducts = products.filter((product) => product.id !== pid);
-
-            await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, 2), {
-                encoding: "utf-8",
-            });
-        } else {
-            return [];
-        }
+        await productsModel.findByIdAndDelete(pid, { new: true });
     }
 
     static async updateProduct(prodUpdated, pid) {
-        if (fs.existsSync(this.path)) {
-            const products = JSON.parse(
-                await fs.promises.readFile(this.path, { encoding: "utf-8" }),
-            );
-
-            const newProducts = products.map((prod) =>
-                prod.id === pid ? { ...prod, ...prodUpdated } : prod,
-            );
-
-            await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, 2), {
-                encoding: "utf-8",
-            });
-        } else {
-            return [];
-        }
+        await productsModel.findByIdAndUpdate(pid, prodUpdated, { new: true });
     }
 }
