@@ -9,15 +9,19 @@ export const productsRouter = Router();
 productsRouter.get("/", async (req, res) => {
     const { limit, page, query, sort } = req.query;
 
-    const limitNumber = Number(limit);
-    const pageNumber = Number(page);
-
-    if (isNaN(limitNumber) || isNaN(pageNumber)) {
-        return res.status(400).json({ error: "El limite y la pagina deben ser un numero" });
+    if (limit){
+        if (isNaN(Number(limit))) {
+            return res.status(400).json({ error: "El limite debe ser un numero" });
+        }
+    }
+    if (page){
+        if (isNaN(Number(page))) {
+            return res.status(400).json({ error: "La pagina debe ser un numero" });
+        }
     }
 
     try {
-        const products = await ProductManager.getProducts(limitNumber, pageNumber, query, sort);
+        const products = await ProductManager.getProducts(limit, page, query, sort);
         return res.status(200).json(products);
     } catch (error) {
         console.log(error);
