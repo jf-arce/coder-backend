@@ -26,6 +26,14 @@ getCartProducts();
 cleanCart.addEventListener("click", async () => {
     await fetch(`/api/carts/${CART}`, {
         method: "DELETE",
+    }).then(() => {
+        Swal.fire({
+            title: 'Se limpió el carrito!',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        }).then(() => {
+            location.reload();
+        }); 
     });
 });
 
@@ -40,6 +48,14 @@ cartContainer.addEventListener("click", async (e) => {
         const id = e.target.dataset.id;
         await fetch(`/api/carts/${CART}/products/${id}`, {
             method: "DELETE",
+        }).then(() => {
+            Swal.fire({
+                title: 'Se eliminó el producto del carrito!',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            }).then(() => {
+                location.reload();
+            }); 
         });
     }
 });
@@ -71,5 +87,7 @@ const updateQuantity = async (id, quantity) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ quantity }),
+    }).then(() => {
+        location.reload();
     });
 }

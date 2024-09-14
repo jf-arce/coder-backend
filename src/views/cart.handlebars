@@ -17,7 +17,7 @@
             <img src={{this.product.thumbnails}} alt="Producto 1" class="product-image">
             <div class="product-details">
                 <h3>{{this.product.title}}</h3>
-                <p>{{this.product.price}}</p>
+                <p>$ {{this.product.price}}</p>
                 <div class="quantity-controls">
                     <button class="btn-decrease" id="btn-decrease" data-id={{this.product._id}}>-</button>
                     <span class="quantity" id="input-quantity">{{this.quantity}}</span>
@@ -33,4 +33,5 @@
     </div>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/cart.js"></script>

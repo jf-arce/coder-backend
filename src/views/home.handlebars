@@ -5,17 +5,70 @@
             <button class="btn" href="/cart" id="cart-view">Ver carrito</button>
         </li>
         <li style="display: flex; align-items: center;">
-            <div style="display: flex; gap: 5px; align-items: center;">🛒<span>{{numCarts}}</span></div>
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/>
+                    <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1"/>
+                </svg>
+                <span style="font-size: 20px;">{{numCarts}}</span>
+            </div>
         </li>
     </ul>
 </nav>
-<div class="container" id="container-home"></div>
-<div class="pagination-container">
-    <button class="btn btn-primary" id="btn-prev">Anterior</button>
-    <span>Página <span id="current-page">{{page}}</span>  de {{totalPages}}</span>
-    <button class="btn btn-primary" id="btn-next">Siguiente</button> 
-</div>
+<main class="main-home">
+    <aside>
+        <form id="filters-form" class="filter-sidebar">
+            <h2>Filtrar Productos</h2>
+            <!-- Filtro por categoría -->
+            <div class="filter-category">
+                <h3>Categoría</h3>
+                <select id="category-filter" name="category">
+                    <option value="all">Todas las categorías</option>
+                    <option value="microfonos">Microfonos</option>
+                    <option value="teclados">Teclados</option>
+                    <option value="guitarras">Guitarras</option>
+                    <option value="bajos">Bajos</option>
+                    <option value="baterias">Baterías</option>
+                    <option value="viento">Viento</option>
+                    <option value="amplificadores">Amplificadores</option>
+                    <option value="monitores">Monitores</option>
+                </select>
+            </div>
+            <!-- Filtro por precio -->
+            <div class="filter-price">
+                <h3>Precio</h3>
+                <select id="price-filter" name="sort">
+                    <option value="asc">Precio: Menor a Mayor</option>
+                    <option value="desc">Precio: Mayor a Menor</option>
+                </select>
+            </div>
+            <!-- Filtro por límite de productos -->
+            <div class="filter-limit">
+                <h3>Mostrar</h3>
+                <select id="limit-filter" name="limit">
+                    <option value="3">3 productos</option>
+                    <option value="5">5 productos</option>
+                    <option value="10">10 productos</option>
+                </select>
+            </div>
+            <!-- Botón aplicar -->
+            <button class="apply-filters" type="submit">Aplicar Filtros</button>
+            <button class="apply-filters clean-filters" type="button" id="clean-filters">Limpiar Filtros</button>
+        </form>
+    </aside>
+    <section class="home-products">
+        <div class="container" id="container-home"></div>
+        <div class="pagination-container">
+            <button class="btn btn-primary" id="btn-first">Primera</button>
+            <button class="btn btn-primary" id="btn-prev">Anterior</button>
+            <span>Página <span id="current-page">{{page}}</span>  de <span id="total-pages">{{totalPages}}</span></span>
+            <button class="btn btn-primary" id="btn-next">Siguiente</button> 
+            <button class="btn btn-primary" id="btn-last">Última</button>
+        </div>
+    </section>
+</main>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/home.js"></script>
 <script src="/js/cart.js"></script>
 

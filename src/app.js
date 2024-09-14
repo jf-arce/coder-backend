@@ -13,7 +13,7 @@ import { config } from "./config/config.js";
 const app = express();
 const PORT = config.PORT;
 const httpServer = app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    console.log(`Servidor escuchando en http://localhost:${PORT}/products`);
 });
 export const io = new Server(httpServer);
 
