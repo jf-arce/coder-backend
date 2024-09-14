@@ -1,23 +1,29 @@
 import mongoose from "mongoose";
-import paginate from "mongoose-paginate-v2";
 
 const cartsColl = "carts";
 
 const cartsSchema = new mongoose.Schema(
     {
-        products: [
-            {
-                id: String,
-                quantity: Number,
-            }
-        ]
+        products: {
+            type: [
+                {
+                    product: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "products",
+                    },
+                    quantity: Number,
+                },
+            ],
+        },
     },
     {
         timestamps: true,
         strict: false,
-    }
-)
+    },
+);
 
-cartsSchema.plugin(paginate);
+cartsSchema.pre("findOne", function(){
+    this.populate("products.product").lean(); // Para que siempre devuelva los productos con sus datos
+});
 
 export const cartsModel = mongoose.model(cartsColl, cartsSchema);

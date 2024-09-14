@@ -1,20 +1,21 @@
 <h1>Productos</h1>
-<div class="container">
-    {{#each products}}
-        <div class="card-product">
-            <header class="card-header">
-                <div class="img-container">
-                    {{#each thumbnails}}
-                        <img src={{this}} alt={{this.title}}>
-                    {{/each}}
-                </div>
-            </header>
-            <div class="card-content">
-                <h3 class="title-product">{{this.title}}</h3>
-                <p class="description-product">{{this.description}}</p>
-                <p class="price-product">${{this.price}}</p>
-            </div>
-        </div>
-    {{/each}}
+<nav class="header">
+    <ul>
+        <li>
+            <button class="btn" href="/cart" id="cart-view">Ver carrito</button>
+        </li>
+        <li style="display: flex; align-items: center;">
+            <div style="display: flex; gap: 5px; align-items: center;">🛒<span>{{numCarts}}</span></div>
+        </li>
+    </ul>
+</nav>
+<div class="container" id="container-home"></div>
+<div class="pagination-container">
+    <button class="btn btn-primary" id="btn-prev">Anterior</button>
+    <span>Página <span id="current-page">{{page}}</span>  de {{totalPages}}</span>
+    <button class="btn btn-primary" id="btn-next">Siguiente</button> 
 </div>
+
+<script src="/js/home.js"></script>
+<script src="/js/cart.js"></script>
 

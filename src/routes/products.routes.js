@@ -9,6 +9,17 @@ export const productsRouter = Router();
 productsRouter.get("/", async (req, res) => {
     const { limit, page, query, sort } = req.query;
 
+    if (limit){
+        if (isNaN(Number(limit))) {
+            return res.status(400).json({ error: "El limite debe ser un numero" });
+        }
+    }
+    if (page){
+        if (isNaN(Number(page))) {
+            return res.status(400).json({ error: "La pagina debe ser un numero" });
+        }
+    }
+
     try {
         const products = await ProductManager.getProducts(limit, page, query, sort);
         return res.status(200).json(products);

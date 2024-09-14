@@ -7,6 +7,7 @@ if(window.location.pathname === '/realTimeProducts'){
 const containerProducts = document.getElementById("container-products");
 const productsForm = document.getElementById("products-form");
 
+
 socket.on("addProduct", (data) => {
     containerProducts.innerHTML += `
         <div class="card-product">
@@ -38,7 +39,7 @@ productsForm.addEventListener("submit", async (e) => {
     await fetch("/api/products", {
         method: "POST",
         body: formData,
-    });
+    }).then(()=> console.log('Producto creado correctamente'));
 });
 
 containerProducts.addEventListener("click", async (e) => {
