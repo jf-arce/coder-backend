@@ -45,6 +45,9 @@ export class ProductManager {
     }
 
     static async addProduct(newProduct) {
+        const productExist = await productsModel.findOne({ code: newProduct.code });
+        if (productExist) throw new Error(`El producto con codigo ${newProduct.code} ya existe`);
+
         await productsModel.create(newProduct);
     }
 

@@ -35,6 +35,13 @@ export class CartManager {
     }
 
     static async deleteProductFromCart(cid, pid) {
+        const productExist = await cartsModel.findOne({
+            _id: cid,
+            products: { $elemMatch: { product: pid } },
+        });
+
+        if (!productExist) throw new Error(`El producto con id ${pid} no existe en el carrito`);
+
         await cartsModel.updateOne({ _id: cid }, { $pull: { products: { product: pid } } });
     }
 
